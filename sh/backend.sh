@@ -17,7 +17,7 @@ chmod 0400 /root/.ssh/id_rsa
 
 mkdir -p /phonebook-step-app
 
-cd /phonebook-step-app
+cd phonebook-step-app
 
 ssh-keyscan github.com >>/root/.ssh/known_hosts
 git clone git@github.com:ElbrusGarayev/phonebook-app.git
