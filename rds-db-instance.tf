@@ -1,10 +1,10 @@
 resource "aws_db_subnet_group" "database-subnet-group" {
-  name = "database subnets"
+  name = "db subnet"
   subnet_ids = [aws_subnet.private-subnet-3.id, aws_subnet.private-subnet-4.id]
-  description = "Subnet for Database Instance"
+  description = "DB Instance Subnet"
 
   tags = {
-    Name = "Database Subnets"
+    Name = "DB Subnet"
   }
 }
 
@@ -25,5 +25,5 @@ resource "aws_db_instance" "database-instance" {
   vpc_security_group_ids = [aws_security_group.database-security-group.id]
   username = var.username
   password = var.password
-  name = "phonebookdb"
+  name = "phonebook_db"
 }

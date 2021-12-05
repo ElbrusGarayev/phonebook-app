@@ -15,14 +15,14 @@ HEREDOC
 
 chmod 0400 /root/.ssh/id_rsa
 
-mkdir -p /src/my-frontend-app
+mkdir -p /phonebook-react-front
 
-cd /src/my-frontend-app
+cd /phonebook-react-front
 
 ssh-keyscan github.com >>/root/.ssh/known_hosts
-git clone git@github.com:H-Orkhan/phone-app-frontend.git
+git clone git@github.com:ElbrusGarayev/phonebook-app.git
 
 cd phonebook-react-front
 
-docker build -t my-frontend-app:v1.0.0 .
-docker run -di -e PHONEBOOK_BACKEND_API=${backend_url} --name my-fronted-app -p 80:80 my-frontend-app:v1.0.0
+docker build -t phonebook-frontend-img:v1.0.0 .
+docker run -di -e PHONEBOOK_BACKEND_API=${backend_api_url} --name phonebook-frontend -p 80:80 phonebook-frontend-img:v1.0.0

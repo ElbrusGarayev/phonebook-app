@@ -41,7 +41,7 @@ resource "aws_launch_template" "launch-frontend" {
     }
   }
 
-  user_data = templatefile("files/frontend-deploy-data.sh", {
-    backend_url = aws_lb_listener.http_backend.arn
+  user_data = templatefile("files/frontend.sh", {
+    backend_api_url = aws_lb_listener.http_backend.arn
   })
 }

@@ -1,6 +1,6 @@
 resource "aws_security_group" "alb-security-group" {
   name = "ALB Security Group"
-  description = "Enable HTTP/HTTPS access on Port 80/443"
+  description = "Enable HTTP/HTTPS access on 80/443"
   vpc_id = aws_vpc.vpc.id
 
   ingress {
@@ -34,7 +34,7 @@ resource "aws_security_group" "alb-security-group" {
 
 resource "aws_security_group" "ssh-security-group" {
   name = "SSH Access"
-  description = "Enable SSH access on Port 22"
+  description = "SSH access enabling on 22"
   vpc_id = aws_vpc.vpc.id
 
   ingress {
@@ -53,13 +53,13 @@ resource "aws_security_group" "ssh-security-group" {
   }
 
   tags = {
-    Name = "SSH Security Group"
+    Name = "Security Group"
   }
 }
 
 resource "aws_security_group" "webserver-security-group" {
   name = "Web Server Security Group"
-  description = "Enable HTTP/HTTPS access on Port 80/443 via ALB and SHH on Port 22 via SHH SG"
+  description = "Enable HTTP/HTTPS access on 80/443 via ALB and SHH on 22 via SHH SG"
   vpc_id = aws_vpc.vpc.id
 
   ingress {
@@ -100,12 +100,12 @@ resource "aws_security_group" "webserver-security-group" {
 }
 
 resource "aws_security_group" "database-security-group" {
-  name = "Database Security Group"
-  description = "Enable Mysql accsess on Port 3306"
+  name = "DB Security Group"
+  description = "Enable Mysql access on 3306"
   vpc_id = aws_vpc.vpc.id
 
   ingress {
-    description = "Mysql Access"
+    description = "DB Access"
     from_port = 3306
     protocol  = "tcp"
     to_port   = 3306
@@ -120,6 +120,6 @@ resource "aws_security_group" "database-security-group" {
   }
 
   tags = {
-    Name = "Database Security Group"
+    Name = "DB Security Group"
   }
 }

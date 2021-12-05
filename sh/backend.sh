@@ -15,14 +15,14 @@ HEREDOC
 
 chmod 0400 /root/.ssh/id_rsa
 
-mkdir -p /src/my-backend-app
+mkdir -p /phonebook-step-app
 
-cd /src/my-backend-app
+cd /phonebook-step-app
 
 ssh-keyscan github.com >>/root/.ssh/known_hosts
-git clone git@github.com:ElbrusGarayev/phone-app-backend.git
+git clone git@github.com:ElbrusGarayev/phonebook-app.git
 
 cd phonebook-step-app
 
-docker build -t my-backend-app:v1.0.0 .
-docker run -di -e MYSQL_URL=${msql_url} -e MYSQL_USERNAME=${msql_username} -e MYSQL_PASSWORD=${msql_password} --name my-backend-app -p 80:80 my-backend-app:v1.0.0
+docker build -t phonebook-backend-img:v1.0.0 .
+docker run -di -e MYSQL_URL=${mysql_url} -e MYSQL_USERNAME=${mysql_username} -e MYSQL_PASSWORD=${mysql_password} --name phonebook-backend -p 80:80 phonebook-backend-img:v1.0.0

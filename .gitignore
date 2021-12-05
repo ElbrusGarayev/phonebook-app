@@ -34,3 +34,7 @@ build/
 
 # Project exclude paths
 /phonebook-react-front/node_modules/
+/mvnw
+/mvnw.cmd
+/.env
+/.m2/

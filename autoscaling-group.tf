@@ -1,5 +1,5 @@
 resource "aws_autoscaling_group" "autoscaling-group-backend" {
-  name = "autoscaling-group-backend-app"
+  name = "as-group-backend"
 
   vpc_zone_identifier = [aws_subnet.private-subnet-1.id, aws_subnet.private-subnet-2.id]
   desired_capacity    = 2
@@ -43,7 +43,7 @@ resource "aws_autoscaling_policy" "scale_app_backend" {
 }
 
 resource "aws_autoscaling_group" "autoscaling-group-frontend" {
-  name = "autoscaling-group-frontend-app"
+  name = "as-group-frontend"
 
   vpc_zone_identifier = [aws_subnet.public-subnet-1.id, aws_subnet.public-subnet-2.id]
   desired_capacity    = 2

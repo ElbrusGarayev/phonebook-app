@@ -42,9 +42,9 @@ resource "aws_launch_template" "launch-backend" {
     }
   }
 
-  user_data  = templatefile("files/backend-deploy-data.sh", {
-    msql_url      = "jdbc:mysql://${aws_db_instance.database-instance.address}:${aws_db_instance.database-instance.port}/${aws_db_instance.database-instance.name}",
-    msql_username = aws_db_instance.database-instance.username, msql_password = aws_db_instance.database-instance.password
+  user_data  = templatefile("files/backend.sh", {
+    mysql_url      = "jdbc:mysql://${aws_db_instance.database-instance.address}:${aws_db_instance.database-instance.port}/${aws_db_instance.database-instance.name}",
+    mysql_username = aws_db_instance.database-instance.username, mysql_password = aws_db_instance.database-instance.password
   })
   depends_on = [aws_db_instance.database-instance]
 }
