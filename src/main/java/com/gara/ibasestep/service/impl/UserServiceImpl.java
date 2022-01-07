@@ -13,7 +13,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static com.gara.ibasestep.enums.OperationStatus.FAILED;
@@ -38,7 +37,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserOperationResponse addUser(AddUserRequest addUserRequest) {
         try {
-            User user = this.toUser(addUserRequest);
+            User user = toUser(addUserRequest);
             User savedUser = userRepository.save(user);
             return buildUserOperationResponse(savedUser.getId(), ADD, SUCCESS);
         } catch (Exception e) {
@@ -61,12 +60,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserOperationResponse deleteUser(int userId) {
-        try {
-            userRepository.deleteById(userId);
-            return buildUserOperationResponse(userId, DELETE, SUCCESS);
-        } catch (Exception e) {
-            return buildUserOperationResponse(0, DELETE, FAILED);
-        }
+        userRepository.deleteById(userId);
+        return buildUserOperationResponse(userId, DELETE, SUCCESS);
     }
 
     private UserOperationResponse buildUserOperationResponse(int userId,
@@ -78,7 +73,7 @@ public class UserServiceImpl implements UserService {
                 .operationType(operationType)
                 .build();
     }
-    
+
     private UserResponse toUserResponse(User user) {
         return UserResponse.builder()
                 .name(user.getName())
@@ -86,7 +81,7 @@ public class UserServiceImpl implements UserService {
                 .phone(user.getPhone())
                 .build();
     }
-    
+
     private User toUser(AddUserRequest addUserRequest) {
         return User.builder()
                 .name(addUserRequest.getName())
