@@ -20,7 +20,6 @@ pipeline {
 //                 withSonarQubeEnv('SonarQube server'){
 //                     sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.2:sonar'
 //                 }
-                def scannerHome = tool 'SonarQube'
                       withSonarQubeEnv('SonarQube') {
                       sh """/var/lib/jenkins/tools/hudson.plugins.sonar.SonarRunnerInstallation/SonarQube/bin/sonar-scanner \
                      -D sonar.projectVersion=1.0-SNAPSHOT \
