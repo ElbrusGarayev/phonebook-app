@@ -1,7 +1,12 @@
+
+
+
+
+
 The FINAL PROJECT task description:
-1. You use the same micro-services application with the same APIs you developed for the step-project
+1. You use the same micro-services application with the same APIs you developed for the step-project -- XXX
 2. This time you deploy your application not to a set of EC2-instances managed by Auto-Scaling Groups but to a Kubernetes cluster
-3. The database part is not scalable — no specific requirements to its architecture
+3. The database part is not scalable — no specific requirements to its architecture -- XXX
 4. The front-end and the back-end parts must be independently scalable.
    The front-end must be auto-scaled by number of incoming requests (f.i. >10 within 1 minute) and the back-end must be auto-scaled by CPU load (>60% within 1 minute)
 5. The K8s-cluster will be running on your local computer. Use minikube tool for running the cluster. AWS is not used in this project.
@@ -12,7 +17,7 @@ The FINAL PROJECT task description:
 10. Jenkins pipeline must incorporate Sonarqube with check of existing code Statement Coverage configured for 80%
 11. You must create unit tests for the services using AssertThat statement — not assertEquals
 12. You must mock controller in the tests
-13. You must mock data layer in unit tests
+13. You must mock data layer in unit tests -- XXX
 14. (optional) It would be great if you implement asynchronous communication via redis/kafka among the services
 
 Deadline: 07.03.2022 1 pm Baku time

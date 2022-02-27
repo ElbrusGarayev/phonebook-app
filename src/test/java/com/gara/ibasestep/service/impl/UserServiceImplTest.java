@@ -2,8 +2,6 @@ package com.gara.ibasestep.service.impl;
 
 import com.gara.ibasestep.dao.entity.User;
 import com.gara.ibasestep.dao.repository.UserRepository;
-import com.gara.ibasestep.enums.OperationStatus;
-import com.gara.ibasestep.enums.OperationType;
 import com.gara.ibasestep.model.request.AddUserRequest;
 import com.gara.ibasestep.model.request.UpdateUserRequest;
 import com.gara.ibasestep.model.response.UserOperationResponse;
@@ -16,28 +14,30 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static com.gara.ibasestep.enums.OperationStatus.FAILED;
+import static com.gara.ibasestep.enums.OperationStatus.SUCCESS;
+import static com.gara.ibasestep.enums.OperationType.ADD;
+import static com.gara.ibasestep.enums.OperationType.DELETE;
+import static com.gara.ibasestep.enums.OperationType.EDIT;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ContextConfiguration(classes = {UserServiceImpl.class})
 @ExtendWith(SpringExtension.class)
 class UserServiceImplTest {
-    
+
     private static final int ID = 1;
     private static final int SIZE = 1;
     private static final String NAME = "John Doe";
     private static final String PHONE = "4105551213";
-    
+
     @MockBean
     private UserRepository userRepository;
 
@@ -62,11 +62,11 @@ class UserServiceImplTest {
         List<UserResponse> actualUsers = userServiceImpl.getUsers();
 
         // assert
-        assertEquals(SIZE, actualUsers.size());
+        assertThat(actualUsers.size()).isSameAs(SIZE);
         UserResponse getResult = actualUsers.get(0);
-        assertEquals(NAME, getResult.getName());
-        assertEquals(ID, getResult.getUserId());
-        assertEquals(PHONE, getResult.getPhone());
+        assertThat(getResult.getName()).isSameAs(NAME);
+        assertThat(getResult.getUserId()).isSameAs(ID);
+        assertThat(getResult.getPhone()).isSameAs(PHONE);
         verify(userRepository).findAll();
     }
 
@@ -79,11 +79,11 @@ class UserServiceImplTest {
         UserOperationResponse actualAddUserResult = userServiceImpl.addUser(new AddUserRequest(NAME, PHONE));
 
         // assert
-        assertEquals(OperationStatus.SUCCESS, actualAddUserResult.getOperationStatus());
-        assertEquals(ID, actualAddUserResult.getUserId());
-        assertEquals(OperationType.ADD, actualAddUserResult.getOperationType());
+        assertThat(actualAddUserResult.getOperationStatus()).isSameAs(SUCCESS);
+        assertThat(actualAddUserResult.getUserId()).isSameAs(ID);
+        assertThat(actualAddUserResult.getOperationType()).isSameAs(ADD);
         verify(userRepository).save(any());
-        assertTrue(userServiceImpl.getUsers().isEmpty());
+        assertThat(userServiceImpl.getUsers().isEmpty()).isTrue();
     }
 
     @Test
@@ -95,8 +95,8 @@ class UserServiceImplTest {
         UserOperationResponse actualAddUserResult = userServiceImpl.addUser(null);
 
         // assert
-        assertEquals(OperationStatus.FAILED, actualAddUserResult.getOperationStatus());
-        assertEquals(OperationType.ADD, actualAddUserResult.getOperationType());
+        assertThat(actualAddUserResult.getOperationStatus()).isSameAs(FAILED);
+        assertThat(actualAddUserResult.getOperationType()).isSameAs(ADD);
     }
 
     @Test
@@ -109,12 +109,11 @@ class UserServiceImplTest {
         UserOperationResponse actualUpdateUserResult = userServiceImpl.updateUser(ID, updateUserRequest);
 
         // assert
-        assertEquals(OperationStatus.SUCCESS, actualUpdateUserResult.getOperationStatus());
-        assertEquals(ID, actualUpdateUserResult.getUserId());
-        assertEquals(OperationType.EDIT, actualUpdateUserResult.getOperationType());
+        assertThat(actualUpdateUserResult.getOperationStatus()).isSameAs(SUCCESS);
+        assertThat(actualUpdateUserResult.getUserId()).isSameAs(ID);
+        assertThat(actualUpdateUserResult.getOperationType()).isSameAs(EDIT);
         verify(userRepository).findById(any());
         verify(userRepository).save(any());
-        assertTrue(userServiceImpl.getUsers().isEmpty());
     }
 
     @Test
@@ -127,10 +126,9 @@ class UserServiceImplTest {
         UserOperationResponse actualUpdateUserResult = userServiceImpl.updateUser(ID, updateUserRequest);
 
         // assert
-        assertEquals(OperationStatus.FAILED, actualUpdateUserResult.getOperationStatus());
-        assertEquals(OperationType.EDIT, actualUpdateUserResult.getOperationType());
+        assertThat(actualUpdateUserResult.getOperationStatus()).isSameAs(FAILED);
+        assertThat(actualUpdateUserResult.getOperationType()).isSameAs(EDIT);
         verify(userRepository).findById(any());
-        assertTrue(userServiceImpl.getUsers().isEmpty());
     }
 
     @Test
@@ -142,13 +140,12 @@ class UserServiceImplTest {
         UserOperationResponse actualDeleteUserResult = userServiceImpl.deleteUser(ID);
 
         // assert
-        assertEquals(OperationStatus.SUCCESS, actualDeleteUserResult.getOperationStatus());
-        assertEquals(ID, actualDeleteUserResult.getUserId());
-        assertEquals(OperationType.DELETE, actualDeleteUserResult.getOperationType());
+        assertThat(actualDeleteUserResult.getOperationStatus()).isSameAs(SUCCESS);
+        assertThat(actualDeleteUserResult.getUserId()).isSameAs(ID);
+        assertThat(actualDeleteUserResult.getOperationType()).isSameAs(DELETE);
         verify(userRepository).deleteById(any());
-        assertTrue(userServiceImpl.getUsers().isEmpty());
     }
-    
+
     private void setUpUser() {
         user = User.builder()
                 .id(ID)
