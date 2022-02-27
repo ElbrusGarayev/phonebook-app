@@ -20,7 +20,7 @@ pipeline {
 //                 withSonarQubeEnv('SonarQube server'){
 //                     sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.2:sonar'
 //                 }
-                      withSonarQubeEnv('SonarQube') {
+                      withSonarQubeEnv('SonarQubeScanner') {
                       sh """/var/lib/jenkins/tools/hudson.plugins.sonar.SonarRunnerInstallation/SonarQube/bin/sonar-scanner \
                      -D sonar.projectVersion=1.0-SNAPSHOT \
                        -D sonar.login=admin \
