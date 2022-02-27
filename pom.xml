@@ -38,12 +38,12 @@
                 <sonar.host.url>
                     http://localhost:9095/
                 </sonar.host.url>
-                <sonar.login>
-                    48759166cd0eede25137051a4f6cca5caa1bceb5
-                </sonar.login>
-                <sonar.projectKey>
-                    phonebook-app
-                </sonar.projectKey>
+<!--                <sonar.login>-->
+<!--                    48759166cd0eede25137051a4f6cca5caa1bceb5-->
+<!--                </sonar.login>-->
+<!--                <sonar.projectKey>-->
+<!--                    phonebook-app-->
+<!--                </sonar.projectKey>-->
             </properties>
         </profile>
     </profiles>
