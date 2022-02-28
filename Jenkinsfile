@@ -26,13 +26,13 @@ pipeline {
                        -D sonar.login=admin \
                       -D sonar.password=admin \
                       -D sonar.projectBaseDir=/var/lib/jenkins/workspace/jenkins-sonar/ \
-                        -D sonar.projectKey=my-app1 \
+                        -D sonar.projectKey=phonebook-step-app \
                         -D sonar.sourceEncoding=UTF-8 \
                         -D sonar.language=java \
-                        -D sonar.sources=my-app/src/main \
-                        -D sonar.tests=my-app/src/test \
+                        -D sonar.sources=phonebook-step-app/src/main \
+                        -D sonar.tests=phonebook-step-app/src/test \
                         -D sonar.host.url=http://localhost:9095/"
-                        }
+                      }
             }
         }
     }
