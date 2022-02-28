@@ -17,21 +17,8 @@ pipeline {
         }
         stage ('SonarQube analysis') {
             steps {
-//                 withSonarQubeEnv('SonarQube server'){
-//                     sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.2:sonar'
-//                 }
                       withSonarQubeEnv('SonarQubeScanner') {
-                      sh "/var/lib/jenkins/tools/hudson.plugins.sonar.SonarRunnerInstallation/SonarQube/bin/sonar-scanner \
-                     -D sonar.projectVersion=1.0-SNAPSHOT \
-                       -D sonar.login=admin \
-                      -D sonar.password=admin \
-                      -D sonar.projectBaseDir=/var/lib/jenkins/workspace/jenkins-sonar/ \
-                        -D sonar.projectKey=phonebook-step-app \
-                        -D sonar.sourceEncoding=UTF-8 \
-                        -D sonar.language=java \
-                        -D sonar.sources=phonebook-step-app/src/main \
-                        -D sonar.tests=phonebook-step-app/src/test \
-                        -D sonar.host.url=http://localhost:9095/"
+                      sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.7.0.1746:sonar'
                       }
             }
         }
