@@ -21,7 +21,7 @@ pipeline {
 //                     sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.2:sonar'
 //                 }
                       withSonarQubeEnv('SonarQubeScanner') {
-                      sh """/var/lib/jenkins/tools/hudson.plugins.sonar.SonarRunnerInstallation/SonarQube/bin/sonar-scanner \
+                      sh "/var/lib/jenkins/tools/hudson.plugins.sonar.SonarRunnerInstallation/SonarQube/bin/sonar-scanner \
                      -D sonar.projectVersion=1.0-SNAPSHOT \
                        -D sonar.login=admin \
                       -D sonar.password=admin \
@@ -31,7 +31,7 @@ pipeline {
                         -D sonar.language=java \
                         -D sonar.sources=my-app/src/main \
                         -D sonar.tests=my-app/src/test \
-                        -D sonar.host.url=http://localhost:9095/"""
+                        -D sonar.host.url=http://localhost:9095/"
                         }
             }
         }

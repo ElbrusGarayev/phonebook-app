@@ -11,11 +11,11 @@ The FINAL PROJECT task description:
    The front-end must be auto-scaled by number of incoming requests (f.i. >10 within 1 minute) and the back-end must be auto-scaled by CPU load (>60% within 1 minute)
 5. The K8s-cluster will be running on your local computer. Use minikube tool for running the cluster. AWS is not used in this project.
 6. Docker images are allowed to store on any type of docker-registry: a local one, dockerhub or whatever you will be able to configure access to
-7. Jenkins server is to be used for CI/CD flow for the services. You may install it locally, but it’s up to you
+7. Jenkins server is to be used for CI/CD flow for the services. You may install it locally, but it’s up to you -- XXX
 8. Jenkins pipelines for rebuilding the microservices of your application are to be created
 9. Jenkins pipelines for rolling-out the microservices in case of faulty builds are to be created
 10. Jenkins pipeline must incorporate Sonarqube with check of existing code Statement Coverage configured for 80%
-11. You must create unit tests for the services using AssertThat statement — not assertEquals
+11. You must create unit tests for the services using AssertThat statement -- XXX
 12. You must mock controller in the tests
 13. You must mock data layer in unit tests -- XXX
 14. (optional) It would be great if you implement asynchronous communication via redis/kafka among the services
