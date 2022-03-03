@@ -22,15 +22,9 @@ pipeline {
                         sh 'mvn clean verify sonar:sonar'
                     }
                 }
+                waitForQualityGate abortPipeline: true
             }
         }
-        stage ('SonarQube quality gate') {
-                    steps {
 
-
-                                            waitForQualityGate abortPipeline: true
-
-                    }
-                }
     }
 }
