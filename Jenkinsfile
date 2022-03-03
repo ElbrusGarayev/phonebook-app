@@ -28,11 +28,8 @@ pipeline {
         stage ('SonarQube quality gate') {
             steps {
                 timeout(time: 1, unit: 'HOURS') {
-                                def qg = waitForQualityGate()
-                                if (qg.status != 'OK') {
-                                    error "Error occured due to quality gates"
-                                }
-                            }
+                    waitForQualityGate abortPipeline: true
+                }
             }
         }
     }
