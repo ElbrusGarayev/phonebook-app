@@ -19,13 +19,18 @@ pipeline {
             steps {
                 withMaven(maven : 'maven_3') {
                     withSonarQubeEnv('SonarQube') {
-                        sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.7.0.1746:sonar'
+                        sh 'mvn clean verify sonar:sonar'
                     }
                 }
-                timeout(time: 1, unit: 'HOURS') {
-                                    waitForQualityGate abortPipeline: false
-                                }
             }
         }
+        stage ('SonarQube quality gate') {
+                    steps {
+
+
+                                            waitForQualityGate abortPipeline: true
+
+                    }
+                }
     }
 }
