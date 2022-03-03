@@ -17,12 +17,11 @@ pipeline {
         }
         stage ('SonarQube analysis') {
             steps {
-            withMaven(maven : 'maven_3') {
-                                withSonarQubeEnv('SonarQube') {
-                                                      sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.7.0.1746:sonar'
-                                                      }
-                            }
-
+                withMaven(maven : 'maven_3') {
+                    withSonarQubeEnv('SonarQube') {
+                        sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.7.0.1746:sonar'
+                    }
+                }
             }
         }
     }
