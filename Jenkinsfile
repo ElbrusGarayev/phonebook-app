@@ -24,12 +24,14 @@ pipeline {
                     }
                 }
             }
+        }
+        stage ('SonarQube quality gate') {
             timeout(time: 1, unit: 'HOURS') {
-                                def qg = waitForQualityGate()
-                                if (qg.status != 'OK') {
-                                    error "Error occured due to quality gates"
-                                }
-                            }
+                def qg = waitForQualityGate()
+                if (qg.status != 'OK') {
+                    error "Error occured due to quality gates"
+                }
+            }
         }
     }
 }
