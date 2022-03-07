@@ -25,6 +25,12 @@ pipeline {
                 waitForQualityGate abortPipeline: true
             }
         }
-
+        stage('Build Docker Image') {
+            steps {
+                 script {
+                     sh 'docker build -t gara/phonebook-final-app-1.0:latest .'
+                 }
+            }
+        }
     }
 }
