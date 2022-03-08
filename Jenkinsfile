@@ -32,13 +32,13 @@ pipeline {
                  }
             }
         }
-        stage('Deploy Docker Image') {
+        stage('Push Docker Image') {
             steps {
                  script {
                      withCredentials([string(credentialsId: 'Docker-Hub-Password', variable: 'dockerhubpwd')]) {
                          sh 'docker login -u elbrusgarayev -p ${dockerhubpwd}'
                      }
-                     sh 'docker push gara/phonebook-final-app-1.0'
+                     sh 'docker push elbrusgarayev/phonebook-final-app-1.0'
                  }
             }
         }
