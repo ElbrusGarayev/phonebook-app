@@ -35,7 +35,7 @@ pipeline {
         stage('Deploy Docker Image') {
             steps {
                  script {
-                     withCredentials([string(credentialsId: 'dockerhub-pwd', variable: 'dockerhubpwd')]) {
+                     withCredentials([string(credentialsId: 'Docker-Hub-Password', variable: 'dockerhubpwd')]) {
                          sh 'docker login -u elbrusgarayev -p ${dockerhubpwd}'
                      }
                      sh 'docker push gara/phonebook-final-app-1.0'
