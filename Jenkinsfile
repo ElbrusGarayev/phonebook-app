@@ -1,7 +1,5 @@
 pipeline {
-    agent {
-    label 'docker'
-    }
+    agent any
     stages {
         stage ('Compile') {
             steps {
@@ -44,18 +42,5 @@ pipeline {
                  }
             }
         }
-//         stage('Deploy k8s') {
-//             steps {
-// //                 sshagent(['k8s']) {
-// //                             sh "scp -o StrictHostKeyChecking=no nodejsapp.yaml ubuntu@IPofk8scluster:/home/ubuntu"
-//                             script {
-//
-//                                     sh "kubectl config view"
-//
-//
-//                 }
-// //                         }
-//             }
-//         }
     }
 }
