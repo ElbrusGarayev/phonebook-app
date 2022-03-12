@@ -1,14 +1,14 @@
 pipeline {
     agent any
     stages {
-        stage ('Compile Stage') {
+        stage ('Compile') {
             steps {
                 withMaven(maven : 'maven_3') {
-                    sh 'mvn clean compile'
+                    sh 'mvn clean install'
                 }
             }
         }
-        stage ('Testing Stage') {
+        stage ('Unit Tests') {
             steps {
                 withMaven(maven : 'maven_3') {
                     sh 'mvn test'
@@ -40,6 +40,19 @@ pipeline {
                      }
                      sh 'docker push elbrusgarayev/phonebook-final-app-1.0'
                  }
+            }
+        }
+        stage('Deploy k8s') {
+            steps {
+//                 sshagent(['k8s']) {
+//                             sh "scp -o StrictHostKeyChecking=no nodejsapp.yaml ubuntu@IPofk8scluster:/home/ubuntu"
+                            script {
+
+                                    sh "kubectl config view"
+
+                            }
+                }
+//                         }
             }
         }
     }

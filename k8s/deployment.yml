@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: phonebook-backend-deployment
+  namespace: phonebook-app
+  labels:
+    app: phonebook-backend
+    env: demo
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: phonebook-backend
+  template:
+    metadata:
+      labels:
+        app: phonebook-backend
+        tier: backend
+        track: stable
+    spec:
+      containers:
+        - name: phonebook-backend
+          image: elbrusgarayev/phonebook-final-app-1.0:latest
+          ports:
+            - name: http
+              containerPort: 8080
+          env:
+            - name: DB_URL
+              value: jdbc:postgresql://ec2-52-44-209-165.compute-1.amazonaws.com:5432/dfenio64ko2oft
+            - name: DB_USER
+              value: uogalcethnweuz
+            - name: DB_PASSWORD
+              value: dd400e801626df3e60c7744545e9f42b9346cecbc96a6d22c606a6473445be77
+          volumeMounts:
+            - mountPath: /app/config
+              name: backend-config
+      restartPolicy: Always
+      volumes:
+        - name: backend-config
+          configMap:
+            name: backend-config
