@@ -1,5 +1,19 @@
 pipeline {
-    agent any
+    agent {
+        kubernetes {
+          yaml '''
+            apiVersion: v1
+            kind: Pod
+            spec:
+              containers:
+              - name: docker
+                image: docker
+                command:
+                - cat
+                tty: true
+            '''
+        }
+      }
     stages {
         stage ('Compile') {
             steps {
