@@ -25,21 +25,34 @@ pipeline {
                 waitForQualityGate abortPipeline: true
             }
         }
-        stage('Build Docker Image') {
+//         stage('Build Docker Image') {
+//             steps {
+//                  script {
+//                      sh 'docker build -t elbrusgarayev/phonebook-final-app-1.0:latest .'
+//                  }
+//             }
+//         }
+//         stage('Push Docker Image') {
+//             steps {
+//                  script {
+//                      withCredentials([string(credentialsId: 'Docker-Hub-Password', variable: 'dockerhubpwd')]) {
+//                          sh 'docker login -u elbrusgarayev -p ${dockerhubpwd}'
+//                      }
+//                      sh 'docker push elbrusgarayev/phonebook-final-app-1.0'
+//                  }
+//             }
+//         }
+        stage('Deploy k8s') {
             steps {
-                 script {
-                     sh 'docker build -t elbrusgarayev/phonebook-final-app-1.0:latest .'
-                 }
-            }
-        }
-        stage('Push Docker Image') {
-            steps {
-                 script {
-                     withCredentials([string(credentialsId: 'Docker-Hub-Password', variable: 'dockerhubpwd')]) {
-                         sh 'docker login -u elbrusgarayev -p ${dockerhubpwd}'
-                     }
-                     sh 'docker push elbrusgarayev/phonebook-final-app-1.0'
-                 }
+//                 sshagent(['k8s']) {
+//                             sh "scp -o StrictHostKeyChecking=no nodejsapp.yaml ubuntu@IPofk8scluster:/home/ubuntu"
+                            script {
+
+                                    sh "kubectl config view"
+
+
+                }
+//                         }
             }
         }
     }
