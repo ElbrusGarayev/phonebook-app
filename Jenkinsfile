@@ -19,16 +19,16 @@ environment {
                 }
             }
         }
-//         stage ('SonarQube analysis') {
-//             steps {
-//                 withMaven(maven : 'maven_3') {
-//                     withSonarQubeEnv('SonarQube') {
-//                         sh 'mvn clean verify sonar:sonar'
-//                     }
-//                 }
-//                 waitForQualityGate abortPipeline: true
-//             }
-//         }
+        stage ('SonarQube analysis') {
+            steps {
+                withMaven(maven : 'maven_3') {
+                    withSonarQubeEnv('SonarQube') {
+                        sh 'mvn clean verify sonar:sonar'
+                    }
+                }
+                waitForQualityGate abortPipeline: true
+            }
+        }
         stage('Build Docker Image') {
             steps {
                  script {
@@ -36,16 +36,16 @@ environment {
                  }
             }
         }
-//         stage('Push Docker Image') {
-//             steps {
-//                  script {
-//                      withCredentials([string(credentialsId: 'Docker-Hub-Password', variable: 'dockerhubpwd')]) {
-//                          sh 'docker login -u elbrusgarayev -p ${dockerhubpwd}'
-//                      }
-//                      dockerImage.push('latest')
-//                  }
-//             }
-//         }
+        stage('Push Docker Image') {
+            steps {
+                 script {
+                     withCredentials([string(credentialsId: 'Docker-Hub-Password', variable: 'Docker-hub-pwd')]) {
+                         sh 'docker login -u elbrusgarayev -p ${Docker-hub-pwd}'
+                     }
+                     dockerImage.push('latest')
+                 }
+            }
+        }
         stage('Deploy on K8S') {
             steps {
                 script {
