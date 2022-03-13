@@ -32,7 +32,7 @@ environment {
         stage('Build Docker Image') {
             steps {
                  script {
-                    dockerImage = docker.image imagename
+                    dockerImage = docker.build imagename
                  }
             }
         }
