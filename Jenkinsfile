@@ -19,23 +19,23 @@ environment {
                 }
             }
         }
-        stage ('SonarQube analysis') {
-            steps {
-                withMaven(maven : 'maven_3') {
-                    withSonarQubeEnv('SonarQube') {
-                        sh 'mvn clean verify sonar:sonar'
-                    }
-                }
-                waitForQualityGate abortPipeline: true
-            }
-        }
-//         stage('Build Docker Image') {
+//         stage ('SonarQube analysis') {
 //             steps {
-//                  script {
-//                     dockerImage = docker.build imagename
-//                  }
+//                 withMaven(maven : 'maven_3') {
+//                     withSonarQubeEnv('SonarQube') {
+//                         sh 'mvn clean verify sonar:sonar'
+//                     }
+//                 }
+//                 waitForQualityGate abortPipeline: true
 //             }
 //         }
+        stage('Build Docker Image') {
+            steps {
+                 script {
+                    dockerImage = docker.build imagename
+                 }
+            }
+        }
 //         stage('Push Docker Image') {
 //             steps {
 //                  script {
