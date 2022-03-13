@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gara.ibasestep.model.request.AddUserRequest;
 import com.gara.ibasestep.model.request.UpdateUserRequest;
 import com.gara.ibasestep.model.response.UserOperationResponse;
+import com.gara.ibasestep.model.response.UserResponse;
 import com.gara.ibasestep.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,7 +12,11 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
@@ -27,6 +32,7 @@ import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.anyInt;
 import static org.mockito.Mockito.when;
 
+@ContextConfiguration(classes = {UserController.class})
 @ExtendWith(MockitoExtension.class)
 class UserControllerTest {
 
@@ -45,6 +51,19 @@ class UserControllerTest {
         setUpUserOperationResponse();
         setUpUpdateUserRequest();
         setUpAddUserRequest();
+    }
+
+    @Test
+    void testGetUser() throws Exception {
+        when(this.userService.findById(anyInt())).thenReturn(new UserResponse(123, "Name", "4105551212"));
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/user/api/{userId}", 123);
+        MockMvcBuilders.standaloneSetup(this.userController)
+                .build()
+                .perform(requestBuilder)
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().contentType("application/json"))
+                .andExpect(
+                        MockMvcResultMatchers.content().string("{\"userId\":123,\"name\":\"Name\",\"phone\":\"4105551212\"}"));
     }
 
     @Test

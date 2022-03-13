@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static com.gara.ibasestep.enums.OperationStatus.FAILED;
@@ -62,6 +63,15 @@ public class UserServiceImpl implements UserService {
     public UserOperationResponse deleteUser(int userId) {
         userRepository.deleteById(userId);
         return buildUserOperationResponse(userId, DELETE, SUCCESS);
+    }
+
+    @Override
+    public UserResponse findById(int userId) {
+        Optional<User> optionalUser = userRepository.findById(userId);
+        if (optionalUser.isPresent()) {
+            return toUserResponse(optionalUser.get());
+        }
+        return null;
     }
 
     private UserOperationResponse buildUserOperationResponse(int userId,

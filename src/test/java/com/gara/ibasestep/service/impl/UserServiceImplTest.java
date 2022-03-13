@@ -69,6 +69,21 @@ class UserServiceImplTest {
     }
 
     @Test
+    void getUserByIdThenSuccessResult() {
+        // arrange
+        when(userRepository.findById(any())).thenReturn(Optional.of(user));
+
+        // act
+        UserResponse userResponse = userServiceImpl.findById(ID);
+
+        // assert
+        assertThat(userResponse.getName()).isSameAs(NAME);
+        assertThat(userResponse.getUserId()).isSameAs(ID);
+        assertThat(userResponse.getPhone()).isSameAs(PHONE);
+        verify(userRepository).findById(ID);
+    }
+
+    @Test
     void addUserThenSuccessResult() {
         // arrange
         when(userRepository.save(any())).thenReturn(user);

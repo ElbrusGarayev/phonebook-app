@@ -27,6 +27,11 @@ public class UserController {
 
     private final UserService userService;
 
+    @GetMapping("/{userId}")
+    public UserResponse getUser(@PathVariable int userId) {
+        return userService.findById(userId);
+    }
+
     @GetMapping
     public List<UserResponse> getUsers() {
         log.info("getting users");

@@ -17,4 +17,6 @@ public interface UserService {
 
     UserOperationResponse deleteUser(int userId);
 
+    UserResponse findById(int userId);
+
 }

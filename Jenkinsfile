@@ -28,7 +28,8 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                  script {
-                     sh 'docker build -t elbrusgarayev/phonebook-final-app-1.0:latest .'
+                    docker.build("elbrusgarayev/phonebook-final-app-1.0:latest")
+//                      sh 'docker build -t elbrusgarayev/phonebook-final-app-1.0:latest .'
                  }
             }
         }
