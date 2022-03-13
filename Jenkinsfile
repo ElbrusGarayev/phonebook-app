@@ -19,45 +19,39 @@ environment {
                 }
             }
         }
-//         stage ('SonarQube analysis') {
-//             steps {
-//                 withMaven(maven : 'maven_3') {
-//                     withSonarQubeEnv('SonarQube') {
-//                         sh 'mvn clean verify sonar:sonar'
-//                     }
-//                 }
-//                 waitForQualityGate abortPipeline: true
-//             }
-//         }
-        stage('Build Docker Image') {
+        stage ('SonarQube analysis') {
             steps {
-                 script {
-                    dockerImage = docker.build imagename
-                 }
+                withMaven(maven : 'maven_3') {
+                    withSonarQubeEnv('SonarQube') {
+                        sh 'mvn clean verify sonar:sonar'
+                    }
+                }
+                waitForQualityGate abortPipeline: true
             }
         }
-        stage('Push Docker Image') {
-            steps {
-                 script {
-                     withCredentials([string(credentialsId: 'Docker-Hub-Password', variable: 'dockerhubpwd')]) {
-                         sh 'docker login -u elbrusgarayev -p ${dockerhubpwd}'
-                     }
-                     dockerImage.push('latest')
-                 }
-            }
-        }
-//         stage('Deploy k8s') {
+//         stage('Build Docker Image') {
 //             steps {
-// //                 sshagent(['k8s']) {
-// //                             sh "scp -o StrictHostKeyChecking=no nodejsapp.yaml ubuntu@IPofk8scluster:/home/ubuntu"
-//                             script {
-//
-//                                     sh "kubectl config view"
-//
-//
-//                 }
-// //                         }
+//                  script {
+//                     dockerImage = docker.build imagename
+//                  }
 //             }
 //         }
+//         stage('Push Docker Image') {
+//             steps {
+//                  script {
+//                      withCredentials([string(credentialsId: 'Docker-Hub-Password', variable: 'dockerhubpwd')]) {
+//                          sh 'docker login -u elbrusgarayev -p ${dockerhubpwd}'
+//                      }
+//                      dockerImage.push('latest')
+//                  }
+//             }
+//         }
+        stage('Deploy on K8S') {
+            steps {
+                script {
+                   sh 'kubectl rollout restart deployment/phonebook-backend-deployment -n phonebook-app'
+                }
+            }
+        }
     }
 }

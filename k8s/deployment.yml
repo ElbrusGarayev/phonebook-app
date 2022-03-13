@@ -39,3 +39,4 @@ spec:
         - name: backend-config
           configMap:
             name: backend-config
+            kubectl set image deployment/phonebook-backend-deployment phonebook-backend=elbrusgarayev/phonebook-final-app-1.0:latest
