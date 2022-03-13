@@ -15,16 +15,16 @@ pipeline {
                 }
             }
         }
-        stage ('SonarQube analysis') {
-            steps {
-                withMaven(maven : 'maven_3') {
-                    withSonarQubeEnv('SonarQube') {
-                        sh 'mvn clean verify sonar:sonar'
-                    }
-                }
-                waitForQualityGate abortPipeline: true
-            }
-        }
+//         stage ('SonarQube analysis') {
+//             steps {
+//                 withMaven(maven : 'maven_3') {
+//                     withSonarQubeEnv('SonarQube') {
+//                         sh 'mvn clean verify sonar:sonar'
+//                     }
+//                 }
+//                 waitForQualityGate abortPipeline: true
+//             }
+//         }
         stage('Build Docker Image') {
             steps {
                  script {
