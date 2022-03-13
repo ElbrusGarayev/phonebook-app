@@ -67,19 +67,6 @@ class UserControllerTest {
     }
 
     @Test
-    void testGetUser2() throws Exception {
-        when(this.userService.findById(anyInt())).thenReturn(new UserResponse(123, "Name", "4105551212"));
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/user/api/{userId}", 123);
-        MockMvcBuilders.standaloneSetup(this.userController)
-                .build()
-                .perform(requestBuilder)
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().contentType("application/json"))
-                .andExpect(
-                        MockMvcResultMatchers.content().string("{\"userId\":123,\"name\":\"Name\",\"phone\":\"4105551212\"}"));
-    }
-
-    @Test
     void testGetUsers() throws Exception {
         // arrange
         when(userService.getUsers()).thenReturn(new ArrayList<>());
