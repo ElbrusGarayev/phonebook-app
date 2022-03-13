@@ -1,8 +1,4 @@
 pipeline {
-environment {
-    imagename = "elbrusgarayev/phonebook-final-app-1.0:latest"
-    dockerImage = ''
-  }
     agent any
     stages {
         stage ('Compile') {
@@ -32,7 +28,7 @@ environment {
         stage('Build Docker Image') {
             steps {
                  script {
-                    dockerImage = docker.build imagename
+                    sh 'docker build -t elbrusgarayev/phonebook-final-app-1.0:latest .'
                  }
             }
         }
@@ -42,7 +38,7 @@ environment {
                      withCredentials([string(credentialsId: 'dockerpwd', variable: 'dockerpwd')]) {
                          sh 'docker login -u elbrusgarayev -p ${dockerpwd}'
                      }
-                     dockerImage.push('latest')
+                     sh 'docker push elbrusgarayev/phonebook-final-app-1.0:latest'
                  }
             }
         }
