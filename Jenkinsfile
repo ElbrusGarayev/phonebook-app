@@ -32,7 +32,7 @@ environment {
         stage('Build Docker Image') {
             steps {
                  script {
-                    dockerImage = docker.build imagename
+                    dockerImage = docker.image imagename
                  }
             }
         }
@@ -42,7 +42,7 @@ environment {
                      withCredentials([string(credentialsId: 'Docker-Hub-Password', variable: 'dockerhubpwd')]) {
                          sh 'docker login -u elbrusgarayev -p ${dockerhubpwd}'
                      }
-                     sh 'docker push elbrusgarayev/phonebook-final-app-1.0'
+                     dockerImage.push('latest')
                  }
             }
         }
