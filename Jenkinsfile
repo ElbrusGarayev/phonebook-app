@@ -1,4 +1,8 @@
 pipeline {
+environment {
+    imagename = "elbrusgarayev/phonebook-final-app-1.0:latest"
+    dockerImage = ''
+  }
     agent any
     stages {
         stage ('Compile') {
@@ -27,10 +31,9 @@ pipeline {
 //         }
         stage('Build Docker Image') {
             steps {
-//                  script {
-                    docker.build("elbrusgarayev/phonebook-final-app-1.0:latest")
-//                      sh 'docker build -t elbrusgarayev/phonebook-final-app-1.0:latest .'
-//                  }
+                 script {
+                    dockerImage = docker.build imagename
+                 }
             }
         }
         stage('Push Docker Image') {
