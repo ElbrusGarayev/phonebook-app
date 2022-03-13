@@ -84,6 +84,19 @@ class UserServiceImplTest {
     }
 
     @Test
+    void getUserByIdThenNullResult() {
+        // arrange
+        when(userRepository.findById(any())).thenReturn(Optional.empty());
+
+        // act
+        UserResponse userResponse = userServiceImpl.findById(ID);
+
+        // assert
+        assertThat(userResponse).isSameAs(null);
+        verify(userRepository).findById(ID);
+    }
+
+    @Test
     void addUserThenSuccessResult() {
         // arrange
         when(userRepository.save(any())).thenReturn(user);
